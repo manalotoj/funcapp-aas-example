@@ -1,0 +1,13 @@
+{
+    "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet",
+    "ClientId": "",
+    "ClientSecret": "",
+    "ClientScope": "https://management.azure.com/.default",
+    "TenantId": "",
+    "LoginUrl": "https://login.microsoftonline.com",
+    "SubscriptionId": ""
+  }
+}

@@ -1,0 +1,17 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aas.FuncApp", "Aas.FuncApp\Aas.FuncApp.csproj", "{3DC2F805-43A2-419E-ABE8-1B083C7EB418}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|anycpu = Debug|anycpu
+		Release|anycpu = Release|anycpu
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3DC2F805-43A2-419E-ABE8-1B083C7EB418}.Debug|anycpu.ActiveCfg = Debug|Any CPU
+		{3DC2F805-43A2-419E-ABE8-1B083C7EB418}.Debug|anycpu.Build.0 = Debug|Any CPU
+		{3DC2F805-43A2-419E-ABE8-1B083C7EB418}.Release|anycpu.ActiveCfg = Release|Any CPU
+		{3DC2F805-43A2-419E-ABE8-1B083C7EB418}.Release|anycpu.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
