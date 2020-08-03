@@ -33,6 +33,13 @@ namespace Aas.FuncApp.Functions
       this.webAppService = webAppService;
       this.log = log;
     }
+
+    /// <summary>
+    /// Updates firewall rules with the current possible outbound IP addresses of the provided Azure web application.
+    /// </summary>
+    /// <param name="req"></param>
+    /// <param name="durableClient"></param>
+    /// <returns></returns>
     [FunctionName(nameof(UpdateFirewallSettings))]
     public async Task<IActionResult> UpdateFirewallSettings(
       [HttpTrigger(AuthorizationLevel.Function, "patch", "post", Route = "")] HttpRequestMessage req,
@@ -72,9 +79,17 @@ namespace Aas.FuncApp.Functions
       return ipAddressList;
     }
 
+    /// <summary>
+    /// Replaces existing firewall rules with the firewall rules provided in the body of the request.
+    /// </summary>
+    /// <param name="req"></param>
+    /// <param name="subscriptionId"></param>
+    /// <param name="group"></param>
+    /// <param name="server"></param>
+    /// <returns></returns>
     [FunctionName(nameof(SetFirewallSettings))]
     public async Task<IActionResult> SetFirewallSettings(
-        [HttpTrigger(AuthorizationLevel.Function, "patch", "post", Route = "subscriptions/{subscriptionId}/groups/{group}/analysisservers/{server}/setfirewallsettings")] HttpRequestMessage req, string subscriptionId, string group, string server)
+        [HttpTrigger(AuthorizationLevel.Function, "patch", "post", Route = "subscriptions/{subscriptionId}/groups/{group}/analysisservers/{server}/firewallsettings")] HttpRequestMessage req, string subscriptionId, string group, string server)
     {
       IpV4FirewallSettings firewallSettings = await req.Content.ReadAsAsync<IpV4FirewallSettings>();
       if (firewallSettings == null) return new BadRequestObjectResult(new ArgumentNullException("message body invalid or not found"));
