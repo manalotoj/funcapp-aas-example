@@ -6,32 +6,56 @@ using Aas.FuncApp.Services;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Serilog;
 
 [assembly: FunctionsStartup(typeof(Aas.FuncApp.Startup))]
 namespace Aas.FuncApp
 {
   public class Startup : FunctionsStartup
   {
-    public IServiceCollection Services => throw new NotImplementedException();
-
     public override void Configure(IFunctionsHostBuilder builder)
     {
-      var config = new ConfigurationBuilder()
-          .SetBasePath(Directory.GetCurrentDirectory())
-          .AddEnvironmentVariables()
-          .Build();
+      Log.Logger = new LoggerConfiguration()
+        .MinimumLevel.Debug()
+        .MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Warning)
+        .Enrich.FromLogContext()
+        .WriteTo.Console()
+        .WriteTo.Debug()
+        .CreateLogger();
 
-      builder.Services.AddSingleton<IConfiguration>(config);
-      builder.Services.AddLogging();
+      try
+      {
+        var config = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddEnvironmentVariables()
+            .Build();
 
-      var httpClient = new HttpClient();
-      builder.Services.AddSingleton(httpClient);
+        builder.Services.AddSingleton<IConfiguration>(config);
+        builder.Services.AddLogging(
+          lb => lb.ClearProviders()
+            .AddSerilog(Log.Logger));
 
-      builder.Services.AddScoped(typeof(AzureAnalysisService));
-      builder.Services.AddScoped(typeof(AzureAdService));
-      builder.Services.AddScoped(typeof(AzureWebSiteService));
-      builder.Services.AddScoped(typeof(AnalysisServiceManager));
+
+        var httpClient = new HttpClient();
+        builder.Services.AddSingleton(httpClient);
+
+        builder.Services.AddScoped(typeof(AzureAnalysisService));
+        builder.Services.AddScoped(typeof(AzureAdService));
+        builder.Services.AddScoped(typeof(AzureWebSiteService));
+        builder.Services.AddScoped(typeof(AnalysisServiceManager));
+      }
+      catch (Exception ex)
+      {
+        Log.Fatal(ex, "Host terminated unexpectedly");
+        throw;
+      }
+      finally
+      {
+        Log.CloseAndFlush();
+      }
     }
+
 
     public bool IsDevelopmentEnvironment()
     {
