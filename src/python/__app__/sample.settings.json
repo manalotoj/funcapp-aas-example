@@ -1,0 +1,13 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "",
+    "FUNCTIONS_WORKER_RUNTIME": "python",
+    "TENANT_ID": "<Azure AD tenant Id>",
+    "CLIENT_ID": "<Azure AD application registration client Id>",
+    "CLIENT_SECRET": "<Azure AD application registration client secret>",
+    "STORAGE_TABLE_CONN_STRING": "<storage table connection string>",
+    "TABLE_NAME": "possibleOutboundIpAddresses",
+    "ENTITY_ROW_KEY": "196397ab-d9f3-45a7-b71b-4622bb4c8ef4"
+  }
+}
