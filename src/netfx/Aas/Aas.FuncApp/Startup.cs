@@ -16,7 +16,7 @@ namespace Aas.FuncApp
   {
     public override void Configure(IFunctionsHostBuilder builder)
     {
-      Log.Logger = new LoggerConfiguration()
+      var logger = new LoggerConfiguration()
         .MinimumLevel.Debug()
         .MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Warning)
         .Enrich.FromLogContext()
@@ -33,13 +33,12 @@ namespace Aas.FuncApp
 
         builder.Services.AddSingleton<IConfiguration>(config);
         builder.Services.AddLogging(
-          lb => lb.ClearProviders()
-            .AddSerilog(Log.Logger));
+          lb => lb.AddSerilog(logger));
 
 
         var httpClient = new HttpClient();
         builder.Services.AddSingleton(httpClient);
-
+        builder.Services.AddSingleton(Log.Logger);
         builder.Services.AddScoped(typeof(AzureAnalysisService));
         builder.Services.AddScoped(typeof(AzureAdService));
         builder.Services.AddScoped(typeof(AzureWebSiteService));

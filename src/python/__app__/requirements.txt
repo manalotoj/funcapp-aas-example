@@ -1,0 +1,10 @@
+azure-functions
+azure-mgmt-resource==10.0.0
+azure-mgmt-web
+azure-cli-core
+azure-identity
+azure-core
+adal
+msrest>= 0.6.0
+numpy
+azure-cosmosdb-table

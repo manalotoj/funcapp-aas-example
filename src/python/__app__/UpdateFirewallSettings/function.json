@@ -1,0 +1,34 @@
+{
+  "scriptFile": "__init__.py",
+  "bindings": [
+    {
+      "authLevel": "function",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": [
+        "post"
+      ]
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "$return"
+    },
+    {
+      "name": "ipListRowIn",
+      "type": "table",
+      "tableName": "possibleOutboundIpAddresses",
+      "rowKey": "196397ab-d9f3-45a7-b71b-4622bb4c8ef4",
+      "connection": "STORAGE_TABLE_CONN_STRING",
+      "direction": "in"
+    },
+    {
+      "name": "ipListRowOut",
+      "type": "table",
+      "tableName": "possibleOutboundIpAddresses",
+      "connection": "STORAGE_TABLE_CONN_STRING",
+      "direction": "out"
+    }
+  ]
+}
