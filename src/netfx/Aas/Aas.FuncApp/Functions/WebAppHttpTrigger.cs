@@ -11,6 +11,8 @@ using Aas.FuncApp.Services;
 using System.Net.Http;
 using Microsoft.Azure.Services.AppAuthentication;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Azure.Management.ResourceManager.Fluent;
+using Microsoft.Azure.Management.ResourceManager.Fluent.Authentication;
 
 namespace Aas.FuncApp.Functions
 {
@@ -35,14 +37,12 @@ namespace Aas.FuncApp.Functions
         string subscriptionId, string group, string app)
     {
       log.LogTrace($"subscriptionId: {subscriptionId}, resource group: {group}, app: {app}");
-      var accessToken = await adService.GetAccessTokenAsync();
-      log.LogTrace($"accessToken: {accessToken}");
 
-      var managedIdentityId = config.GetValue<string>("ManagedIdentityId");
-      var connectionString = "RunAs=App;AppId=" + managedIdentityId + $";TenantId={config.GetValue<string>("tenantId")}";
-      var tokenProvider = new AzureServiceTokenProvider(connectionString);
-      accessToken = await tokenProvider.GetAccessTokenAsync(config.GetValue<string>("ClientScope"));
-
+      //var managedIdentityId = config.GetValue<string>("ManagedIdentityId");
+      //var connectionString = "RunAs=App;AppId=" + managedIdentityId;
+      //var tokenProvider = new AzureServiceTokenProvider(connectionString);
+      //var accessToken = await tokenProvider.GetAccessTokenAsync(config.GetValue<string>("Resource"));
+      //log.LogInformation($"accesstoken from mi: {accessToken}");
 
       var credentials = adService.GetCredentials();
       var ipAddressList = await webAppService.GetPossibleOutboundIpAddressesAsync(credentials, subscriptionId, group, app);

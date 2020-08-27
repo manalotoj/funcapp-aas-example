@@ -8,6 +8,8 @@
     "ClientScope": "https://management.azure.com/.default",
     "TenantId": "",
     "LoginUrl": "https://login.microsoftonline.com",
-    "SubscriptionId": ""
+    "SubscriptionId": "",
+    "Resource": "",
+    "ManagedIdentityId":  ""
   }
 }
